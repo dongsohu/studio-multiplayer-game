@@ -49,7 +49,7 @@ export default gameData;
 #### Step 1.2: Extending from the base game component
 
 Next, create a React component to run your game. Using the `tictactoe` example
-above, we must create `src/game/tictactoe/TicTacToe.js`. Your filename and
+above, we must create `src/game/memory/memory.js`. Your filename and
 component name will obviously be different.
 
 ```javascript
