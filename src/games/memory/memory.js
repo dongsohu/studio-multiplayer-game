@@ -1,7 +1,16 @@
 import GameComponent from "../../GameComponent.js";
 import React from "react";
+import UserApi from "../../UserApi.js";
 
 export default class Memory extends GameComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      chats: [],
+      input: ""
+    };
+  }
+
   render() {
     var id = this.getSessionId();
     var users = this.getSessionUserIds().map(user_id => (
@@ -16,5 +25,15 @@ export default class Memory extends GameComponent {
         <ul>{users}</ul>
       </div>
     );
+  }
+  Identity() {
+    this.getSessionDatabaseRef().set({ text: "Hello, World!" });
+    var host = this.getSessionCreatorUserId();
+    var guest = this.getMyUserId();
+    if (host === guest) {
+      return "I am a host";
+    } else {
+      return "I am a guest";
+    }
   }
 }

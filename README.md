@@ -112,7 +112,7 @@ import GameComponent from '../../GameComponent.js';
 import React from 'react';
 import UserApi from '../../UserApi.js';
 
-export default class TicTacToe extends GameComponent {
+export default class Memory extends GameComponent {
 
   render() {
     var id = this.getSessionId();

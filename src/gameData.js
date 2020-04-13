@@ -22,7 +22,7 @@ const gameData = {
     authors: "Danielle Ong",
     description:
       "The ultimate game to test your memory with amazing pictures and other people",
-    minUsers: 2,
+    minUsers: 1,
     maxUsers: 2,
     component: Memory
   },
