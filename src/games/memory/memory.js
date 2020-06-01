@@ -1,6 +1,8 @@
 import GameComponent from "../../GameComponent.js";
 import React from "react";
 import UserApi from "../../UserApi.js";
+import { zIndex } from "material-ui/styles";
+import CardComponent from "./card.js";
 
 export default class Memory extends GameComponent {
   constructor(props) {
@@ -9,25 +11,14 @@ export default class Memory extends GameComponent {
       chats: [],
       input: ""
     };
-
-    var allIds = this.getSessionUserIds();
-    
-
-    // Store the username of the host (aka player 1)
-var host = this.getSessionCreatorUserId();
-
-
-    // Store the username of the guest (aka player 2)
-    var guest;
-
-   for(var i = 0; i++; i< allIds.length){
-     if(allIds[i] !== host){
-      console.log("found the guest");
-     }
-      // console.log(allIds[i =! creator]);
-   }
   }
-
+  randomImages = [
+    "https://i.picsum.photos/id/1066/200/300.jpg",
+    "https://i.picsum.photos/id/192/200/300.jpg",
+    "https://i.picsum.photos/id/556/200/300.jpg",
+    "https://i.picsum.photos/id/1068/200/300.jpg",
+    "https://i.picsum.photos/id/852/200/300.jpg"
+  ];
   gameState = {
     playerOneScore: 0,
     playerTwoScore: 0,
@@ -44,10 +35,43 @@ var host = this.getSessionCreatorUserId();
   //This is used aater when i have determin whose turn it is.
 
   render() {
+    var allIds = this.getSessionUserIds();
+
+    // Store the username of the host (aka player 1)
+    var host = this.getSessionCreatorUserId();
+
+    // Store the username of the guest (aka player 2)
+    var guest;
+
+    // set the value of guest here
+
+    console.log("ALL IDS IS NEXT");
+    console.log(allIds);
+    for (var index = 0; index++; index < allIds.length) {
+      console.log(allIds[index]);
+      if (allIds[index] !== host) {
+        console.log("founzIndex");
+        guest = allIds[index];
+      }
+    }
+
+    const array = [1, 2, 3, 4, 5];
+    // console.log(array[0]);
+    console.log(array[false]);
+
+    console.log("guest id is:" + guest);
+    var hostUserName = UserApi.getName(host);
+    var guestUserName = UserApi.getName(guest);
+
     var id = this.getSessionId();
     var users = this.getSessionUserIds().map(user_id => (
       <li key={user_id}>{user_id}</li>
     ));
+    // create list of card components using map
+    var listOfImages = this.randomImages.map(imageUrl => {
+      return <CardComponent image={imageUrl} />;
+    });
+
     var host = this.getSessionCreatorUserId();
     // var funVar = "the other variable";
     var message;
@@ -58,10 +82,9 @@ var host = this.getSessionCreatorUserId();
     }
 
     const container = {
-
       display: "flex",
       flexGrow: "1",
-      backgroundColor: "blue",
+      backgroundColor: "#a39193",
       flexFlow: "column",
       /* flex-basis: 100%; */
       height: "-webkit-fill-available"
@@ -70,34 +93,34 @@ var host = this.getSessionCreatorUserId();
       border: "solid",
       display: "flex",
       // flex: "1",
-      backgroundColor: "green",
-      flex: "wrap", 
+      backgroundColor: "#aa6f73",
+      flex: "wrap",
       flexFlow: "column",
       width: 600,
-      margin: 15,
+      margin: 15
     };
     const scoreboard = {
       display: "flex",
-      backgroundColor: "red",
+      backgroundColor: "#eea990",
       justifyContent: "center",
       flexFlow: "column",
       alignContent: "center",
-      flex: "wrap", 
+      flex: "wrap",
       width: 100,
-      margin: 15,
+      margin: 15
     };
     return (
       <div style={container} id="container">
         <div style={gameInfo} id="gameInfo">
           <div>
-          <p>Session ID: {id}</p>
+            <p>Session ID: {id}</p>
           </div>
           <div>
-          <p>Session creator: {host}</p>
+            <p>Session creator: {host}</p>
           </div>
           <div>
-          <p>Session users:</p>
-          <ul>{users}</ul>
+            <p>Session users:</p>
+            <ul>{users}</ul>
           </div>
         </div>
         <div>
@@ -106,12 +129,18 @@ var host = this.getSessionCreatorUserId();
         </div>
         <div style={scoreboard} id="scoreboard">
           <div>
-            <span>Player One: {this.gameState.playerOneScore}</span>
+            <span>
+              {hostUserName}: {this.gameState.playerOneScore}
+            </span>
           </div>
           <div>
-            <span>Player Two: {this.gameState.playerTwoScore}</span>
+            <span>
+              {guestUserName}: {this.gameState.playerTwoScore}
+            </span>
           </div>
         </div>
+        <CardComponent image={this.randomImages[0]} />
+        <div>{listOfImages}</div>
       </div>
       // <div>
       //   <div>
