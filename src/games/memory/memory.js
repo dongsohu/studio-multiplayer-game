@@ -67,8 +67,9 @@ export default class Memory extends GameComponent {
     var users = this.getSessionUserIds().map(user_id => (
       <li key={user_id}>{user_id}</li>
     ));
+
     // create list of card components using map
-    var listOfImages = this.randomImages.map(imageUrl => {
+    var listOfImages = this.randomImages.map((imageUrl, index) => {
       return <CardComponent image={imageUrl} />;
     });
 
@@ -84,7 +85,7 @@ export default class Memory extends GameComponent {
     const container = {
       display: "flex",
       flexGrow: "1",
-      backgroundColor: "#a39193",
+      backgroundColor: "#d6c7c7",
       flexFlow: "column",
       /* flex-basis: 100%; */
       height: "-webkit-fill-available"
@@ -93,22 +94,31 @@ export default class Memory extends GameComponent {
       border: "solid",
       display: "flex",
       // flex: "1",
-      backgroundColor: "#aa6f73",
+      backgroundColor: "#ddadad",
       flex: "wrap",
       flexFlow: "column",
       width: 600,
       margin: 15
     };
     const scoreboard = {
+      border: "solid",
       display: "flex",
-      backgroundColor: "#eea990",
+      backgroundColor: "#aec8ce",
       justifyContent: "center",
       flexFlow: "column",
-      alignContent: "center",
       flex: "wrap",
       width: 100,
       margin: 15
     };
+    const imgs = {
+      display: "flex",
+      backgroundColor: "#d6c7c7",
+      flexWrap: "Wrap",
+      justifyContent: "space-between"
+    };
+    // $("button").click(function() {
+    //   $("imgs").hide();
+    // });
     return (
       <div style={container} id="container">
         <div style={gameInfo} id="gameInfo">
@@ -122,10 +132,10 @@ export default class Memory extends GameComponent {
             <p>Session users:</p>
             <ul>{users}</ul>
           </div>
-        </div>
-        <div>
-          <div>{message}</div>
-          {/* <span>The value of funVar is {funVar}</span> */}
+          <div>
+            <div>{message}</div>
+            {/* <span>The value of funVar is {funVar}</span> */}
+          </div>
         </div>
         <div style={scoreboard} id="scoreboard">
           <div>
@@ -138,17 +148,21 @@ export default class Memory extends GameComponent {
               {guestUserName}: {this.gameState.playerTwoScore}
             </span>
           </div>
+          <button id="button">Hide Images</button>
         </div>
-        <CardComponent image={this.randomImages[0]} />
-        <div>{listOfImages}</div>
+        <div style={imgs} id="imgs" >
+          {/* <CardComponent image={this.randomImages[0]} /> */}
+          {listOfImages}
+       */}
+;        </div>
+         <div onClick={() => this.flipCard(index)}>
+          click example
+         </div>
       </div>
       // <div>
-      //   <div>
-      //     some stuff
-      //   </div>
-      //   <div>
-      //     some other stuff
-      //   </div>
+      //   // <div>// some stuff // </div>
+      //   // <div>// some other stuff // </div>
+      //   //{" "}
       // </div>
     );
 
@@ -157,4 +171,8 @@ export default class Memory extends GameComponent {
     //  });
     //  });
   }
+   flipCard(index) {
+    console.log("flipped card " + index);
+  }
+
 }
